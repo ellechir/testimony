@@ -5,27 +5,25 @@ var createResult = require('./lib/results');
 var through = require('through');
 
 var canEmitExit = typeof process !== 'undefined' && process
-    && typeof process.on === 'function' && process.browser !== true
-;
+    && typeof process.on === 'function' && process.browser !== true;
+
 var canExit = typeof process !== 'undefined' && process
-    && typeof process.exit === 'function'
-;
+    && typeof process.exit === 'function';
 
 var nextTick = typeof setImmediate !== 'undefined'
     ? setImmediate
-    : process.nextTick
-;
+    : process.nextTick;
 
 exports = module.exports = (function () {
     var harness;
     var lazyLoad = function () {
         return getHarness().apply(this, arguments);
     };
-    
+
     lazyLoad.only = function () {
         return getHarness().only.apply(this, arguments);
     };
-    
+
     lazyLoad.createStream = function (opts) {
         if (!opts) opts = {};
         if (!harness) {
@@ -35,9 +33,9 @@ exports = module.exports = (function () {
         }
         return harness.createStream(opts);
     };
-    
-    return lazyLoad
-    
+
+    return lazyLoad;
+
     function getHarness (opts) {
         if (!opts) opts = {};
         opts.autoclose = !canEmitExit;
@@ -51,33 +49,33 @@ function createExitHarness (conf) {
     var harness = createHarness({
         autoclose: defined(conf.autoclose, false)
     });
-    
+
     var stream = harness.createStream({ objectMode: conf.objectMode });
     var es = stream.pipe(conf.stream || createDefaultStream());
     if (canEmitExit) {
         es.on('error', function (err) { harness._exitCode = 1 });
     }
-    
+
     var ended = false;
     stream.on('end', function () { ended = true });
-    
+
     if (conf.exit === false) return harness;
     if (!canEmitExit || !canExit) return harness;
-    
+
     var _error;
 
     process.on('uncaughtException', function (err) {
         if (err && err.code === 'EPIPE' && err.errno === 'EPIPE'
         && err.syscall === 'write') return;
-        
-        _error = err
-        
-        throw err
-    })
+
+        _error = err;
+
+        throw err;
+    });
 
     process.on('exit', function (code) {
         if (_error) {
-            return
+            return;
         }
 
         if (!ended) {
@@ -91,7 +89,7 @@ function createExitHarness (conf) {
         harness.close();
         process.exit(code || harness._exitCode);
     });
-    
+
     return harness;
 }
 
@@ -108,11 +106,11 @@ function createHarness (conf_) {
     if (conf_.autoclose !== false) {
         results.once('done', function () { results.close() });
     }
-    
+
     var test = function (name, conf, cb) {
         var t = new Test(name, conf, cb);
         test._tests.push(t);
-        
+
         (function inspectCode (st) {
             st.on('test', function sub (st_) {
                 inspectCode(st_);
@@ -123,18 +121,18 @@ function createHarness (conf_) {
                 }
             });
         })(t);
-        
+
         results.push(t);
         return t;
     };
     test._results = results;
-    
+
     test._tests = [];
-    
+
     test.createStream = function (opts) {
         return results.createStream(opts);
     };
-    
+
     var only = false;
     test.only = function (name) {
         if (only) throw new Error('there can only be one only test');
@@ -143,8 +141,8 @@ function createHarness (conf_) {
         return test.apply(null, arguments);
     };
     test._exitCode = 0;
-    
+
     test.close = function () { results.close() };
-    
+
     return test;
 }
