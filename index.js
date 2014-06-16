@@ -3,6 +3,7 @@ var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
 var createResult = require('./lib/results');
 var through = require('through');
+var nextTick = require('./lib/util').nextTick;
 
 var canEmitExit = typeof process !== 'undefined' && process
     && typeof process.on === 'function' && process.browser !== true;
@@ -10,9 +11,7 @@ var canEmitExit = typeof process !== 'undefined' && process
 var canExit = typeof process !== 'undefined' && process
     && typeof process.exit === 'function';
 
-var nextTick = typeof setImmediate !== 'undefined'
-    ? setImmediate
-    : process.nextTick;
+
 
 exports = module.exports = (function () {
     var harness;
