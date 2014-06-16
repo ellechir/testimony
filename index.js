@@ -1,7 +1,7 @@
 var defined = require('defined');
 var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');
-var createResult = require('./lib/results');
+var Results = require('./lib/results');
 var through = require('through');
 var nextTick = require('./lib/util').nextTick;
 
@@ -99,49 +99,53 @@ exports.test.skip = Test.skip;
 
 var exitInterval;
 
-function createHarness (conf_) {
-    if (!conf_) conf_ = {};
-    var results = createResult();
-    if (conf_.autoclose !== false) {
+function createHarness(opts) {
+    opts = opts || {};
+
+    var results = Results();
+    if (opts.autoclose !== false) {
+        //todo move this logic into results
         results.once('done', function () { results.close() });
     }
 
-    var test = function (name, conf, cb) {
-        var t = new Test(name, conf, cb);
-        test._tests.push(t);
+    //todo things look really ugly, just make it a real class
+    var harness = function(name, conf, cb) {
+        var test = new Test(name, conf, cb);
+        harness._tests.push(test);
+        harness._results.push(test);
+        listenTest(test);
+        return test;
 
-        (function inspectCode (st) {
-            st.on('test', function sub (st_) {
-                inspectCode(st_);
-            });
-            st.on('result', function (r) {
+        function listenTest(t) {
+            t.on('test', listenTest);
+            t.on('result', function (r) {
                 if (r.type == 'assert' && !r.ok) {
-                    test._exitCode = 1;
+                    harness._exitCode = 1;
                 }
             });
-        })(t);
-
-        results.push(t);
-        return t;
-    };
-    test._results = results;
-
-    test._tests = [];
-
-    test.createStream = function (opts) {
-        return results.createStream(opts);
+        }
     };
 
-    var only = false;
-    test.only = function (name) {
-        if (only) throw new Error('there can only be one only test');
-        results.only(name);
-        only = true;
-        return test.apply(null, arguments);
+    harness._results = results;
+    harness._tests = [];
+    harness._exitCode = 0;
+    harness._only = '';
+
+    harness.createStream = function(opts) {
+        return harness._results.createStream(opts);
     };
-    test._exitCode = 0;
 
-    test.close = function () { results.close() };
+    harness.only = function(name) {
+        //todo handle empty name correctly
+        if (harness._only) throw new Error('there can only be one only test');
+        harness._results.only(name);
+        harness._only = name;
+        return harness.apply(null, arguments);
+    };
 
-    return test;
+    harness.close = function() {
+        harness._results.close();
+    };
+
+    return harness;
 }
