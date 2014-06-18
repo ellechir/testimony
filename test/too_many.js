@@ -1,13 +1,13 @@
 var falafel = require('falafel');
-var tape = require('../');
+var testimony = require('../');
 var tap = require('tap');
 
 tap.test('array test', function (tt) {
     tt.plan(1);
-    
-    var test = tape.createHarness({ exit : false });
+
+    var harness = new testimony.Harness({ exit : false });
     var tc = tap.createConsumer();
-    
+
     var rows = [];
     tc.on('data', function (r) { rows.push(r) });
     tc.on('end', function () {
@@ -31,31 +31,31 @@ tap.test('array test', function (tt) {
             'fail  1'
         ]);
     });
-    
-    test.createStream().pipe(tc);
-    
-    test('array', function (t) {
+
+    harness.createStream().pipe(tc);
+
+    harness.test('array', function (t) {
         t.plan(3);
-        
+
         var src = '(' + function () {
             var xs = [ 1, 2, [ 3, 4 ] ];
             var ys = [ 5, 6 ];
             g([ xs, ys ]);
         } + ')()';
-        
+
         var output = falafel(src, function (node) {
             if (node.type === 'ArrayExpression') {
                 node.update('fn(' + node.source() + ')');
             }
         });
-        
+
         var arrays = [
             [ 3, 4 ],
             [ 1, 2, [ 3, 4 ] ],
             [ 5, 6 ],
             [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ],
         ];
-        
+
         Function(['fn','g'], output)(
             function (xs) {
                 t.same(arrays.shift(), xs);

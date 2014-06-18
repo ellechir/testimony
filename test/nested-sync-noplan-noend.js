@@ -1,10 +1,10 @@
-var tape = require('../');
+var testimony = require('../');
 var tap = require('tap');
 
 tap.test('nested sync test without plan or end', function (tt) {
     tt.plan(1);
 
-    var test = tape.createHarness();
+    var harness = new testimony.Harness();
     var tc = tap.createConsumer();
 
     var rows = [];
@@ -30,19 +30,19 @@ tap.test('nested sync test without plan or end', function (tt) {
         tt.same(rs, expected);
     });
 
-    test.createStream().pipe(tc);
+    harness.createStream().pipe(tc);
 
-    test('nested without plan or end', function(t) {
+    harness.test('nested without plan or end', function(t) {
         t.test('first', function(q) {
-            setTimeout(function first() { 
+            setTimeout(function first() {
                 q.ok(true);
-                q.end() 
+                q.end()
             }, 10);
         });
         t.test('second', function(q) {
-            setTimeout(function second() { 
+            setTimeout(function second() {
                 q.ok(true);
-                q.end() 
+                q.end()
             }, 10);
         });
     });

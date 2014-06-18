@@ -1,12 +1,12 @@
-var tape = require('../');
+var testimony = require('../');
 var tap = require('tap');
 var concat = require('concat-stream');
 
 tap.test('array test', function (tt) {
     tt.plan(1);
-    
-    var test = tape.createHarness();
-    test.createStream().pipe(concat(function (body) {
+
+    var harness = new testimony.Harness();
+    harness.createStream().pipe(concat(function (body) {
         tt.equal(
             body.toString('utf8'),
             'TAP version 13\n'
@@ -24,8 +24,8 @@ tap.test('array test', function (tt) {
             + '# fail  1\n'
         );
     }));
-    
-    test('undef', function (t) {
+
+    harness.test('undef', function (t) {
         t.plan(1);
         t.deepEqual({}, { beep: undefined });
     });

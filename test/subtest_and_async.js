@@ -1,4 +1,4 @@
-var test = require('../');
+var test = require('../').test;
 
 var asyncFunction = function (callback) {
   setTimeout(callback, Math.random * 50);

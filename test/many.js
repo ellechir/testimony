@@ -1,4 +1,4 @@
-var test = require('../');
+var test = require('../').test;
 
 test('many tests', function (t) {
     t.plan(100);

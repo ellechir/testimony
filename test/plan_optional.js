@@ -1,4 +1,4 @@
-var test = require('../');
+var test = require('../').test;
 
 test('plan should be optional', function (t) {
     t.pass('no plan here');

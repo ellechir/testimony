@@ -1,8 +1,8 @@
-var tape = require('../');
+var testimony = require('../');
 var tap = require('tap');
 
 tap.test('circular test', function (assert) {
-    var test = tape.createHarness({ exit : false });
+    var harness = new testimony.Harness({ exit : false });
     var tc = tap.createConsumer();
 
     var rows = [];
@@ -32,9 +32,9 @@ tap.test('circular test', function (assert) {
     // tt.equal(10, 10)
     // tt.end()
 
-    test.createStream().pipe(tc);
+    harness.createStream().pipe(tc);
 
-    test("circular", function (t) {
+    harness.test("circular", function (t) {
         t.plan(1)
         var circular = {}
         circular.circular = circular

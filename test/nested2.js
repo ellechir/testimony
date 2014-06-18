@@ -1,4 +1,4 @@
-var test = require('../');
+var test = require('../').test;
 
 test(function(t) {
     var i = 0

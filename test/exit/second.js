@@ -1,4 +1,4 @@
-var test = require('../../');
+var test = require('../../').test;
 
 test('first', function (t) {
     t.plan(1);

@@ -1,4 +1,4 @@
-var test = require('../');
+var test = require('../').test;
 
 test('bind works', function (t) {
   t.plan(2);

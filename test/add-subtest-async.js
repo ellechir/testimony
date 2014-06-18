@@ -1,4 +1,4 @@
-var test = require('../')
+var test = require('../').test;
 
 test('parent', function (t) {
   t.pass('parent');

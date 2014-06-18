@@ -1,4 +1,4 @@
-var test = require('../');
+var test = require('../').test;
 
 var childRan = false;
 

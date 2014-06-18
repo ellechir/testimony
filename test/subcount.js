@@ -1,4 +1,4 @@
-var test = require('../');
+var test = require('../').test;
 
 test('parent test', function (t) {
     t.plan(2);

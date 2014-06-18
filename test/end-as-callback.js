@@ -1,8 +1,8 @@
 var tap = require("tap");
-var tape = require("../");
+var testimony = require("../");
 
 tap.test("tape assert.end as callback", function (tt) {
-    var test = tape.createHarness({ exit: false })
+    var harness = new testimony.Harness({ exit: false })
     var tc = tap.createConsumer()
 
     var rows = []
@@ -32,9 +32,9 @@ tap.test("tape assert.end as callback", function (tt) {
         tt.end()
     })
 
-    test.createStream().pipe(tc)
+    harness.createStream().pipe(tc)
 
-    test("do a task and write", function (assert) {
+    harness.test("do a task and write", function (assert) {
         fakeAsyncTask("foo", function (err, value) {
             assert.ifError(err)
             assert.equal(value, "taskfoo")
@@ -43,7 +43,7 @@ tap.test("tape assert.end as callback", function (tt) {
         })
     })
 
-    test("do a task and write fail", function (assert) {
+    harness.test("do a task and write fail", function (assert) {
         fakeAsyncTask("bar", function (err, value) {
             assert.ifError(err)
             assert.equal(value, "taskbar")

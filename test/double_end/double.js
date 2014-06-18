@@ -1,4 +1,4 @@
-var test = require('../../');
+var test = require('../../').test;
 
 test('double end', function (t) {
     t.equal(1 + 1, 2);

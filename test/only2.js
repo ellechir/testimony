@@ -1,9 +1,9 @@
-var test = require('../');
+var testimony = require('../');
 
-test('only2 test 1', function (t) {
+testimony.test('only2 test 1', function (t) {
     t.end();
 });
 
-test.only('only2 test 2', function (t) {
+testimony.only('only2 test 2', function (t) {
     t.end();
 });
