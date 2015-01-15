@@ -6,6 +6,7 @@ tap.test('array test', function (tt) {
     tt.plan(1);
 
     var harness = new testimony.Harness();
+    harness.run();
     harness.createStream().pipe(concat(function (body) {
         tt.equal(
             body.toString('utf8'),

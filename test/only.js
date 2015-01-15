@@ -31,7 +31,8 @@ tap.test('testimony only test', function (tt) {
         tt.end()
     })
 
-    harness.createStream().pipe(tc)
+    harness.createStream().pipe(tc);
+    harness.run();
 
     harness.test("never run fail", function (t) {
         ran.push(1);

@@ -29,6 +29,7 @@ tap.test('throw test', function (tt) {
     });
 
     harness.createStream().pipe(tc);
+    harness.run();
 
     harness.test('thrower', function (t) {
         t.equal(1 + 1, 2);

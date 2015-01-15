@@ -32,6 +32,7 @@ tap.test('array test', function (tt) {
     });
 
     harness.createStream().pipe(tc);
+    harness.run();
 
     harness.test('array', function (t) {
         t.plan(5);

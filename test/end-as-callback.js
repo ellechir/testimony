@@ -32,7 +32,8 @@ tap.test("tape assert.end as callback", function (tt) {
         tt.end()
     })
 
-    harness.createStream().pipe(tc)
+    harness.createStream().pipe(tc);
+    harness.run();
 
     harness.test("do a task and write", function (assert) {
         fakeAsyncTask("foo", function (err, value) {

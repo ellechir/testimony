@@ -31,6 +31,7 @@ tap.test('nested sync test without plan or end', function (tt) {
     });
 
     harness.createStream().pipe(tc);
+    harness.run();
 
     harness.test('nested without plan or end', function(t) {
         t.test('first', function(q) {

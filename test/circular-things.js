@@ -33,6 +33,7 @@ tap.test('circular test', function (assert) {
     // tt.end()
 
     harness.createStream().pipe(tc);
+    harness.run();
 
     harness.test("circular", function (t) {
         t.plan(1)
