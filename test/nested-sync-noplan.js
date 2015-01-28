@@ -1,7 +1,7 @@
 var testimony = require('../');
 var tap = require('tap');
 
-tap.test('nested sync test without plan or end', function (tt) {
+tap.test('nested sync test without plan', function (tt) {
     tt.plan(1);
 
     var harness = new testimony.Harness();
@@ -18,7 +18,7 @@ tap.test('nested sync test without plan or end', function (tt) {
         });
         var expected = [
             'TAP version 13',
-            'nested without plan or end',
+            'nested without plan',
             'first',
             { id: 1, ok: true, name: '(unnamed assert)' },
             'second',
@@ -33,7 +33,7 @@ tap.test('nested sync test without plan or end', function (tt) {
     harness.createStream().pipe(tc);
     harness.run();
 
-    harness.test('nested without plan or end', function(t) {
+    harness.test('nested without plan', function(t) {
         t.test('first', function(q) {
             setTimeout(function first() {
                 q.ok(true);
@@ -46,6 +46,7 @@ tap.test('nested sync test without plan or end', function (tt) {
                 q.end()
             }, 10);
         });
+        t.end();
     });
 
 });

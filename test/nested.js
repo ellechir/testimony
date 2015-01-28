@@ -26,10 +26,10 @@ tap.test('array test', function (tt) {
             { id: 4, ok: true, name: 'should be equivalent' },
             { id: 5, ok: true, name: 'should be equivalent' },
             'inside test',
-            { id: 6, ok: true, name: '(unnamed assert)' },
-            { id: 7, ok: true, name: '(unnamed assert)' },
+            { id: 6, ok: true, name: 'inside test ok' },
+            { id: 7, ok: true, name: 'inside test ok' },
             'another',
-            { id: 8, ok: true, name: '(unnamed assert)' },
+            { id: 8, ok: true, name: 'another test ok' },
             'tests 8',
             'pass  8',
             'ok'
@@ -56,10 +56,10 @@ tap.test('array test', function (tt) {
 
         t.test('inside test', function (q) {
             q.plan(2);
-            q.ok(true);
+            q.ok(true, 'inside test ok');
 
             setTimeout(function () {
-                q.ok(true);
+                q.ok(true, 'inside test ok');
             }, 100);
         });
 
@@ -84,7 +84,7 @@ tap.test('array test', function (tt) {
     harness.test('another', function (t) {
         t.plan(1);
         setTimeout(function () {
-            t.ok(true);
+            t.ok(true, 'another test ok');
         }, 50);
     });
 });
