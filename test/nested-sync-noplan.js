@@ -20,9 +20,9 @@ tap.test('nested sync test without plan', function (tt) {
             'TAP version 13',
             'nested without plan',
             'first',
-            { id: 1, ok: true, name: '(unnamed assert)' },
+            { id: 1, ok: true, name: 'should be true' },
             'second',
-            { id: 2, ok: true, name: '(unnamed assert)' },
+            { id: 2, ok: true, name: 'should be true' },
             'tests 2',
             'pass  2',
             'ok'

@@ -53,16 +53,16 @@ tap.test('array test', function (tt) {
             [ 3, 4 ],
             [ 1, 2, [ 3, 4 ] ],
             [ 5, 6 ],
-            [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ],
+            [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]
         ];
 
         Function(['fn','g'], output)(
             function (xs) {
-                t.same(arrays.shift(), xs);
+                t.deepEqual(arrays.shift(), xs);
                 return xs;
             },
             function (xs) {
-                t.same(xs, [ [ 1, 2, [ 3, 4444 ] ], [ 5, 6 ] ]);
+                t.deepEqual(xs, [ [ 1, 2, [ 3, 4444 ] ], [ 5, 6 ] ]);
             }
         );
     });

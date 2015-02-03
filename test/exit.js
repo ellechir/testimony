@@ -3,9 +3,9 @@ var spawn = require('child_process').spawn;
 
 tap.test('exit ok', function (t) {
     t.plan(2);
-    
+
     var tc = tap.createConsumer();
-    
+
     var rows = [];
     tc.on('data', function (r) { rows.push(r) });
     tc.on('end', function () {
@@ -28,7 +28,7 @@ tap.test('exit ok', function (t) {
             'ok'
         ]);
     });
-    
+
     var ps = spawn(process.execPath, [ __dirname + '/exit/ok.js' ]);
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
@@ -38,9 +38,9 @@ tap.test('exit ok', function (t) {
 
 tap.test('exit fail', function (t) {
     t.plan(2);
-    
+
     var tc = tap.createConsumer();
-    
+
     var rows = [];
     tc.on('data', function (r) { rows.push(r) });
     tc.on('end', function () {
@@ -63,7 +63,7 @@ tap.test('exit fail', function (t) {
             'fail  1'
         ]);
     });
-    
+
     var ps = spawn(process.execPath, [ __dirname + '/exit/fail.js' ]);
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
@@ -73,9 +73,9 @@ tap.test('exit fail', function (t) {
 
 tap.test('too few exit', function (t) {
     t.plan(2);
-    
+
     var tc = tap.createConsumer();
-    
+
     var rows = [];
     tc.on('data', function (r) { rows.push(r) });
     tc.on('end', function () {
@@ -99,7 +99,7 @@ tap.test('too few exit', function (t) {
             'fail  1'
         ]);
     });
-    
+
     var ps = spawn(process.execPath, [ __dirname + '/exit/too_few.js' ]);
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {
@@ -109,9 +109,9 @@ tap.test('too few exit', function (t) {
 
 tap.test('more planned in a second test', function (t) {
     t.plan(2);
-    
+
     var tc = tap.createConsumer();
-    
+
     var rows = [];
     tc.on('data', function (r) { rows.push(r) });
     tc.on('end', function () {
@@ -124,16 +124,16 @@ tap.test('more planned in a second test', function (t) {
         t.same(rs, [
             'TAP version 13',
             'first',
-            { id: 1, ok: true, name: '(unnamed assert)' },
+            { id: 1, ok: true, name: 'should be true' },
             'second',
-            { id: 2, ok: true, name: '(unnamed assert)' },
+            { id: 2, ok: true, name: 'should be true' },
             { id: 3, ok: false, name: 'plan != count' },
             'tests 3',
             'pass  2',
             'fail  1'
         ]);
     });
-    
+
     var ps = spawn(process.execPath, [ __dirname + '/exit/second.js' ]);
     ps.stdout.pipe(tc);
     ps.on('exit', function (code) {

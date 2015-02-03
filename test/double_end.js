@@ -13,7 +13,7 @@ test(function (t) {
             'TAP version 13',
             '# double end',
             'ok 1 should be equal',
-            'not ok 2 .end() called twice',
+            'not ok 2 end() called twice',
             '  ---',
             '    operator: fail',
             '  ...',

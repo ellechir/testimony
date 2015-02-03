@@ -21,7 +21,7 @@ tap.test('throw test', function (tt) {
             'TAP version 13',
             'thrower',
             { id: 1, ok: true, name: 'should be equal' },
-            { id: 2, ok: false, name: 'Error: rawr' },
+            { id: 2, ok: false, name: 'error during test execution: Error: rawr' },
             'tests 2',
             'pass  1',
             'fail  1',
