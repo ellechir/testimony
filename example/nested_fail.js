@@ -1,51 +1,38 @@
-var falafel = require('falafel');
-var test = require('../');
+var test = require('../').test;
 
-test('nested array test', function (t) {
-    t.plan(5);
-    
-    var src = '(' + function () {
-        var xs = [ 1, 2, [ 3, 4 ] ];
-        var ys = [ 5, 6 ];
-        g([ xs, ys ]);
-    } + ')()';
-    
-    var output = falafel(src, function (node) {
-        if (node.type === 'ArrayExpression') {
-            node.update('fn(' + node.source() + ')');
-        }
+test('first test', function(assert) {
+    assert.plan(4);
+
+    assert.test('first subtest', function(a) {
+        a.ok(true, 'first subtest check');
+
+        setTimeout(function() {
+            a.ok(true, 'first subtest check delayed');
+            a.equal(3, 4, 'this will fail');
+            a.end();
+        }, 100);
     });
-    
-    t.test('inside test', function (q) {
-        q.plan(2);
-        q.ok(true);
-        
-        setTimeout(function () {
-            q.equal(3, 4);
-        }, 3000);
-    });
-    
+
     var arrays = [
-        [ 3, 4 ],
-        [ 1, 2, [ 3, 4 ] ],
-        [ 5, 6 ],
-        [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ],
+        [1, 2],
+        [[1, 2], 3, 4],
+        [[[1, 2], 3, 4], 5, 6],
+        [[[[1, 2], 3, 4], 5, 6], 7, 8]
     ];
-    
-    Function(['fn','g'], output)(
-        function (xs) {
-            t.same(arrays.shift(), xs);
-            return xs;
-        },
-        function (xs) {
-            t.same(xs, [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ]);
-        }
-    );
+
+    for (var i = 1; i < arrays.length; i++) {
+        assert.deepEqual(arrays[i][0], arrays[i -1],
+                         'this will be before subtest');
+    }
 });
 
-test('another', function (t) {
-    t.plan(1);
-    setTimeout(function () {
-        t.ok(true);
+test('second test', function(assert) {
+    assert.plan(2);
+    setTimeout(function() {
+        assert.ok(true);
+        assert.test('second subtest delayed', function(a) {
+            a.ok(true, 'this will pass');
+            a.end(new Error('this will fail'));
+        });
     }, 100);
 });

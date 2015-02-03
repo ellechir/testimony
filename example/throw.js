@@ -1,9 +1,13 @@
-var falafel = require('falafel');
-var test = require('../');
+var test = require('../').test;
 
-test('throw', function (t) {
-    t.plan(2);
-    
+test('throws and catches', function(assert) {
+    assert.plan(2);
+    throw new Error('whatever');
+});
+
+test('throws and crashes', function(assert) {
+    assert.plan(2);
+
     setTimeout(function () {
         throw new Error('doom');
     }, 100);

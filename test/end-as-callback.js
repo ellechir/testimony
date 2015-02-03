@@ -19,13 +19,12 @@ tap.test("tape assert.end as callback", function (tt) {
             "do a task and write",
             { id: 1, ok: true, name: "should not be an error" },
             { id: 2, ok: true, name: "should be equal" },
-            { id: 3, ok: true, name: "end() was passed an error: null" },
             "do a task and write fail",
-            { id: 4, ok: true, name: "should not be an error" },
-            { id: 5, ok: true, name: "should be equal" },
-            { id: 6, ok: false, name: "end() was passed an error: Error: fail" },
-            "tests 6",
-            "pass  5",
+            { id: 3, ok: true, name: "should not be an error" },
+            { id: 4, ok: true, name: "should be equal" },
+            { id: 5, ok: false, name: "this end() will fail" },
+            "tests 5",
+            "pass  4",
             "fail  1"
         ]);
 
@@ -63,5 +62,5 @@ function fakeAsyncWrite(name, cb) {
 }
 
 function fakeAsyncWriteFail(name, cb) {
-    cb(new Error("fail"));
+    cb(new Error("fail"), 'this end() will fail');
 }

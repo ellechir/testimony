@@ -1,35 +1,16 @@
-var falafel = require('falafel');
-var test = require('../');
+var test = require('../').test;
 
-test('array', function (t) {
-    t.plan(5);
-    
-    var src = '(' + function () {
-        var xs = [ 1, 2, [ 3, 4 ] ];
-        var ys = [ 5, 6 ];
-        g([ xs, ys ]);
-    } + ')()';
-    
-    var output = falafel(src, function (node) {
-        if (node.type === 'ArrayExpression') {
-            node.update('fn(' + node.source() + ')');
-        }
-    });
-    
+test('arrays comparison', function(assert) {
     var arrays = [
-        [ 3, 4 ],
-        [ 1, 2, [ 3, 4 ] ],
-        [ 5, 6 ],
-        [ [ 1, 2, [ 3, 4 ] ], [ 5, 6 ] ],
+        [1, 2],
+        [[1, 2], 3, 4],
+        [[[1, 2], 3, 4], 5, 6],
+        [[[[1, 2], 3, 4], 5, 66], 7, 8]
     ];
-    
-    Function(['fn','g'], output)(
-        function (xs) {
-            t.same(arrays.shift(), xs);
-            return xs;
-        },
-        function (xs) {
-            t.same(xs, [ [ 1, 2, [ 3, 4444 ] ], [ 5, 6 ] ]);
-        }
-    );
+
+    for (var i = 1; i < arrays.length; i++) {
+        assert.deepEqual(arrays[i][0], arrays[i -1]);
+    }
+
+    assert.end();
 });

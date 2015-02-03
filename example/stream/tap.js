@@ -1,7 +1,8 @@
-var test = require('../../');
+var Harness = require('../../').Harness;
 var path = require('path');
 
-test.createStream().pipe(process.stdout);
+var harness = new Harness();
+harness.createStream().pipe(process.stdout);
 
 process.argv.slice(2).forEach(function (file) {
     require(path.resolve(file));

@@ -1,4 +1,4 @@
-var test = require('../../../');
+var test = require('../../../').test;
 test(function (t) {
     t.plan(2);
     t.equal(1+1, 2);

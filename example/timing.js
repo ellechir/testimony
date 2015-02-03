@@ -1,12 +1,12 @@
-var test = require('../');
+var test = require('../').test;
 
-test('timing test', function (t) {
-    t.plan(2);
-    
-    t.equal(typeof Date.now, 'function');
+test('timing test', function(assert) {
+    assert.plan(2);
+
+    assert.equal(typeof Date.now, 'function');
     var start = new Date;
-    
+
     setTimeout(function () {
-        t.equal(new Date - start, 100);
+        assert.equal(new Date - start, 100);
     }, 100);
 });
