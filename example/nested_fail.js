@@ -1,28 +1,43 @@
 var test = require('../').test;
 
 test('first test', function(assert) {
-    assert.plan(4);
+    assert.plan(3);
+
+    var random = {
+        min: 3,
+        max: 7,
+        sample: []
+    };
 
     assert.test('first subtest', function(a) {
         a.ok(true, 'first subtest check');
 
         setTimeout(function() {
             a.ok(true, 'first subtest check delayed');
-            a.equal(3, 4, 'this will fail');
+            a.equal(random.min, random.max, 'this will fail');
             a.end();
         }, 100);
     });
 
-    var arrays = [
-        [1, 2],
-        [[1, 2], 3, 4],
-        [[[1, 2], 3, 4], 5, 6],
-        [[[[1, 2], 3, 4], 5, 6], 7, 8]
-    ];
 
-    for (var i = 1; i < arrays.length; i++) {
-        assert.deepEqual(arrays[i][0], arrays[i -1],
-                         'this will be before subtest');
+    assert.comment('this will be run before executing subtest');
+
+    for (var i = 1; i < 10000; i++) {
+        random.sample.push(rand(random.min, random.max));
+    }
+
+    var expectedMean = avg([random.min, random.max]);
+    var actualMean = avg(random.sample);
+
+    assert.equal(actualMean, expectedMean, 'beware of float comparison');
+    assert.ok(Math.abs(actualMean - expectedMean) < 0.01);
+
+
+    function rand(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+    function avg(sample) {
+        return sample.reduce(function(a, b) {return a + b}) / sample.length;
     }
 });
 
