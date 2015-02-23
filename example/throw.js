@@ -2,6 +2,7 @@ var test = require('../').test;
 
 test('throws and catches', function(assert) {
     assert.plan(2);
+    assert.notThrowing(function() {throw new Error('blupp')});
     throw new Error('whatever');
 });
 

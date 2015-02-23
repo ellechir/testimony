@@ -10,6 +10,8 @@ test('first test', function(assert) {
         }, 100);
     });
 
+    assert.comment('this will be generated before executing subtest');
+
     var arrays = [
         [1, 2],
         [[1, 2], 3, 4],
@@ -28,12 +30,14 @@ test('first test', function(assert) {
 test('second test', function (assert) {
     assert.plan(2);
     setTimeout(function () {
-        assert.ok(true);
-        assert.test('second subtest delayed', function(a) {
-            a.ok(true, 'this will pass');
-            someAsyncFunction(a.end);
+        assert.test('second subtest async', function(a) {
+            someAsyncFunction(function(err, res) {
+                a.equal(res, 'response from async callback');
+                a.end(err);
+            });
         });
     }, 100);
+    assert.ok(true, 'first assertion to be made');
 });
 
 function someAsyncFunction(callback) {

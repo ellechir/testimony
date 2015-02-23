@@ -1,7 +1,7 @@
-var test = require('../../');
+var testimony = require('../../');
 var path = require('path');
 
-test.createStream({ objectMode: true }).on('data', function (row) {
+testimony.createStream({ objectMode: true }).on('data', function (row) {
     console.log(JSON.stringify(row))
 });
 

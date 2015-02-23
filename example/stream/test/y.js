@@ -1,11 +1,10 @@
 var test = require('../../../').test;
 test(function (t) {
-    t.plan(2);
-    t.equal(1+1, 2);
-    t.ok(true);
+    t.plan(1);
+    t.equal(3.14, Math.PI, 'PI equals 3.14');
 });
 
-test('wheee', function (t) {
-    t.ok(true);
+test('Test function throwing error', function (t) {
+    t.throwing(function() {throw new Error('boop')}, 'Error: boop');
     t.end();
 });
