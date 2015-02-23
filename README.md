@@ -2,6 +2,9 @@
 
 [![build status](https://secure.travis-ci.org/maslennikov/testimony.png)
 ](http://travis-ci.org/maslennikov/testimony)
+&nbsp;
+[![npm version](http://img.shields.io/npm/v/testimony.svg?style=flat)
+](https://npmjs.org/package/testimony "View on npm")
 
 Lightweight stream-oriented test framework largely inspired by
 [tape](https://github.com/substack/tape)
