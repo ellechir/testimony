@@ -4,6 +4,6 @@ testimony.test('only2 test 1', function (t) {
     t.end();
 });
 
-testimony.only('only2 test 2', function (t) {
+testimony.test('only2 test 2', {only: true}, function (t) {
     t.end();
 });

@@ -46,7 +46,7 @@ tap.test('testimony only test', function (tt) {
         t.end()
     })
 
-    harness.only("run success", function (t) {
+    harness.test("run success", {only: true}, function (t) {
         ran.push(3);
         t.ok(true, "assert name")
         t.end()

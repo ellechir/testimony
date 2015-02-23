@@ -13,13 +13,13 @@ testimony.test('skip this', { skip: true }, function(t) {
     t.end();
 });
 
-testimony.skip('skip this too', function(t) {
+testimony.test('skip this too', {skip: true}, function(t) {
     t.fail('this should not even run');
 	ran++;
     t.end();
 });
 
-testimony.skip('skip this too', function(t) {
+testimony.test('skip this too', {skip: true}, function(t) {
     t.fail('this should not even run');
     t.end();
 });
