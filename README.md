@@ -177,7 +177,7 @@ methods in [tape](https://github.com/substack/tape).
 var test = require('testimony').test
 ```
 
-## `test([name], [opts], fn)`
+## test([name], [opts], fn)
 
 Create a new test with an optional `name` string and optional `opts` object.
 `fn(t)` fires with the new test object `t` once all preceeding tests have
@@ -191,69 +191,69 @@ Available `opts` options are:
 Subtests are created with the `test.test([name], [opts], fn)` method with the
 same signature.
 
-## `test.plan(n)`
+## test.plan(n)
 
 Declare that `n` assertions should be run. `t.end()` will be called
 automatically after the `n`th assertion. If there are any more assertions coming
 after the `n`th, they will generate errors.
 
-## `test.end([err])`
+## test.end([err])
 
 Declare the end of a test explicitly. If `err` is passed in `t.end` will assert
 that it is falsy. If there are any more assertions after `t.end()` is called,
 they will generate errors.
 
-## `test.fail([msg])`
+## test.fail([msg])
 
 Generate a failing assertion with a message `msg`.
 
-## `test.pass([msg])`
+## test.pass([msg])
 
 Generate a passing assertion with a message `msg`.
 
-## `test.skip([msg])`
+## test.skip([msg])
 
 Generate an assertion that will be skipped over.
 
-## `test.ok(value, [msg])`
+## test.ok(value, [msg])
 
 Assert that `value` is truthy with an optional description message `msg`.
 
 Aliases: `test.assert()`, `test.truthy()`
 
-## `test.notOk(value, [msg])`
+## test.notOk(value, [msg])
 
 Assert that `value` is falsy with an optional description message `msg`.
 
 Aliases: `t.falsy()`
 
-## `test.noError(err, [msg])`
+## test.noError(err, [msg])
 
 Assert that `err` is falsy with an optional description message `msg`.
 
-## `test.equal(actual, expected, [msg])`
+## test.equal(actual, expected, [msg])
 
 Assert that `actual === expected` with an optional description `msg`.
 
-## `test.notEqual(actual, notExpected, [msg])`
+## test.notEqual(actual, notExpected, [msg])
 
 Assert that `actual !== notExpected` with an optional description `msg`.
 
-## `test.deepEqual(actual, expected, [msg])`
+## test.deepEqual(actual, expected, [msg])
 
 Assert that `actual` and `expected` have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with strict comparisons (`===`) on leaf nodes and an optional description
 `msg`.
 
-## `test.notDeepEqual(actual, notExpected, [msg])`
+## test.notDeepEqual(actual, notExpected, [msg])
 
 Assert that `actual` and `expected` do not have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
 with strict comparisons (`===`) on leaf nodes and an optional description
 `msg`.
 
-## `test.deepLooseEqual(actual, expected, [msg])`
+## test.deepLooseEqual(actual, expected, [msg])
 
 Assert that `actual` and `expected` have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
@@ -263,7 +263,7 @@ Can be used for loose equality check for simple values also.
 
 Aliases: `test.looseEqual()`
 
-## `test.notDeepLooseEqual(actual, notExpected, [msg])`
+## test.notDeepLooseEqual(actual, notExpected, [msg])
 
 Assert that `actual` and `expected` do not have the same structure and nested values using
 [node's deepEqual() algorithm](https://github.com/substack/node-deep-equal)
@@ -306,23 +306,23 @@ Test registration is made with already known `Harness.test()` method. To get a
 control of test harness, there are the following methods available:
 
 
-## `harness.test([name], [opts], fn)`
+## harness.test([name], [opts], fn)
 
 This is the method described above - creates a new test and registers it with
 the harness. It will be scheduled for execution according its sequence order and
 considering `skip` and `only` flags passed to the `opts`.
 
-## `harness.run()`
+## harness.run()
 
 Triggers the execution of all registered tests.
 
-## `harness.close()`
+## harness.close()
 
 Ensures to finalize all tests handled by harness. All unfinished tests will be
 considered failed. Global harness does this automatically before application
 exit.
 
-## `harness.createStream([opts])`
+## harness.createStream([opts])
 
 Creates a stream of output, bypassing the default output stream that writes
 messages to standard output. By default `stream` will be a text stream of TAP
