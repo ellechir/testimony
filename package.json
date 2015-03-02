@@ -1,6 +1,6 @@
 {
   "name": "testimony",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "lightweight stream-oriented test framework",
   "main": "index.js",
   "bin": "./bin/testimony",
