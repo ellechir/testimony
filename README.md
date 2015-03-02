@@ -190,6 +190,8 @@ Available `opts` options are:
 - `opts.skip: true|false`: The test will be generated but never run.
 - `opts.only: true|false`: The only test to be run for the process, others get
   ignored.
+- `opts.timeout: msec`. Set a timeout for the test after which it will fail
+  unless ended before. See `test.timeoutAfter()`.
 
 Subtests are created with the `test.test([name], [opts], fn)` method with the
 same signature.
@@ -213,6 +215,10 @@ Generate a failing assertion with a message `msg`.
 ## test.pass([msg])
 
 Generate a passing assertion with a message `msg`.
+
+## t.timeoutAfter(ms)
+
+Automatically timeout the test after `ms` ms.
 
 ## test.skip([msg])
 
