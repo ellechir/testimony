@@ -305,11 +305,11 @@ var Test = testimony.Test
 ```
 
 Tests are responsible for running the testing function (that one passed to the
-test() as a callback) and keeping track on assertions. Their sequential run and
-reports producing is the area of the `Harness` class. The `require('testimony')`
-call returns an instance of the global harness which will run all registered
-tests automatically and provide you with a convenient default tap-formatted
-stdout.
+test() as a `body` argument) and keeping track on assertions. Their sequential
+run and reports producing is the area of the `Harness` class. The
+`require('testimony')` call returns an instance of the global harness which will
+run all registered tests automatically and provide you with a convenient default
+tap-formatted stdout.
 
 Test registration is made with already known `Harness.test()` method. To get a
 control of test harness, there are the following methods available:
